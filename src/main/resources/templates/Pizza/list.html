@@ -8,19 +8,19 @@
 
 <body>
 	<div class="container">
-		<h1>Pizze</h1>
-		<hr />
+		<h1 class="text-center text-danger text-uppercase fw-bold pt-3">Pizze</h1 >
+		<hr class="text-danger"/>
 		<div>
-			<a class="btn btn-primary mb-3" th:href="@{/pizze/create}">Add Pizza</a>
+			<a class="btn btn-danger mb-3" th:href="@{/pizza/create}">Add Pizza</a>
 		</div>
 		<table class="table" th:if="${list.size() > 0}">
 			<thead>
-				<tr>
+				<tr class="text-danger text-uppercase">
 					<th>Name</th>
 					<th>Description</th>
 					<th>Price</th>
 					<th>Ingredient</th>
-				</tr>
+				</tr >
 			</thead>
 			<tbody>
 				<tr th:each="item : ${list}">
@@ -29,12 +29,12 @@
 					<td th:text="${item.price}"></td>
 					<td>
 						<table class="table">
-							<tr th:each="ingredient : ${item.ingredient}">
+							<tr th:each="ingredient : ${item.ingredients}">
 								<td th:text="${ingredient.name}"></td>
 							</tr>
 						</table>
 						<div class="alert alert-primary" role="alert" th:unless="${list.size() > 0}">
-							Non ci sono pizze nel database
+							There are no pizza in the database
 						</div>
 					</td>
 				</tr>

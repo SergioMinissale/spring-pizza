@@ -1,11 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 	<div th:replace="fragments/resources :: headTags"></div>
-		<title>Modifica Pizza</title>
+		<title>Edit Pizza</title>
 	</head>
 	<body>
 		<div class="flex-container">
-			<h1 class="text-center">Pizza</h1 >
+			<h1 class="text-center text-danger text-uppercase">Pizza</h1 >
 			<hr/>
 			<div class="row">
 				<div class="col-6 offset-3 mt-4">
@@ -14,7 +14,7 @@
 						th:object="${pizza}"
 						th:action="@{/pizza/create}"
 						method="POST" class="mx-5">
-						<div class="row gy-2">
+						<div class="row gy-2 fw-bold">
 							<div class="col-10">
 								<label class="form-label" for="name">Name</label>
 								<input type="text" class="form-control" id="name" th:field="*{name}">
@@ -30,10 +30,10 @@
 						</div>
 						<div class="row">
 							<div class="col-2 mt-3">
-								<button class="btn btn-primary" type="submit">Save</button>
+								<button class="btn btn-danger" type="submit">Save</button>
 							</div>
 							<div class="col-2 offset-8 mt-3">
-								<a class="btn btn-primary" th:href="@{/}" th:text="Back"></a>
+								<a class="btn btn-danger" th:href="@{/}" th:text="Back"></a>
 							</div >
 						</div>
 					</form>
