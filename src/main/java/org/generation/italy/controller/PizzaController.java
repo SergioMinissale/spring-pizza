@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/pizza")
 public class PizzaController {
 
 	@Autowired
@@ -19,7 +19,7 @@ public class PizzaController {
 
 	@GetMapping
 	public String list(Model model) {
-		model.addAttribute("list", service.findAllSortedByPrice());
+		model.addAttribute("list", service.findAllSortedByName());
 		return "/pizza/list";
 	}
 
@@ -31,7 +31,6 @@ public class PizzaController {
 
 	@PostMapping("/create")
 	public String doCreate(@ModelAttribute("pizza") Pizza formPizza, Model model) {
-		// to do: validation!!
 		service.save(formPizza);
 		return "redirect:/pizza";
 	}

@@ -13,8 +13,8 @@ public class PizzaService {
 	@Autowired
 	private PizzaRepository repository;
 
-	public List<Pizza> findAllSortedByPrice() {
-		return repository.findAll(Sort.by("price"));
+	public List<Pizza> findAllSortedByName() {
+		return repository.findAll(Sort.by("name"));
 	}
 
 	public Pizza save(Pizza pizza) {

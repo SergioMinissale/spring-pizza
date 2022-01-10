@@ -10,7 +10,10 @@
 	<div class="container">
 		<h1>Pizze</h1>
 		<hr />
-		<table>
+		<div>
+			<a class="btn btn-primary mb-3" th:href="@{/pizze/create}">Add Pizza</a>
+		</div>
+		<table class="table" th:if="${list.size() > 0}">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -30,6 +33,9 @@
 								<td th:text="${ingredient.name}"></td>
 							</tr>
 						</table>
+						<div class="alert alert-primary" role="alert" th:unless="${list.size() > 0}">
+							Non ci sono pizze nel database
+						</div>
 					</td>
 				</tr>
 			</tbody>
