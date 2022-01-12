@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Pizza {
@@ -17,13 +19,13 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotNull
+	@NotEmpty(message="Name is mandatory")
 	private String name;
 
-	@NotNull
 	private String description;
 
-	@NotNull
+	@NotNull(message="Price must be not null")
+	@Positive(message="Price must be positive")
 	private BigDecimal price;
 
 	@ManyToMany

@@ -1,10 +1,13 @@
 package org.generation.italy.controller;
 
+import javax.validation.Valid;
+
 import org.generation.italy.model.Pizza;
 import org.generation.italy.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +40,10 @@ public class PizzaController {
 	}
 
 	@PostMapping("/create")
-	public String doCreate(@ModelAttribute("pizza") Pizza formPizza, Model model) {
+	public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()) {
+			return "/pizza/edit";
+		}
 		service.save(formPizza);
 		return "redirect:/pizza";
 	}
@@ -53,12 +59,10 @@ public class PizzaController {
 	public String doUpdate(@ModelAttribute("pizza") Pizza formPizza, Model model) {
 		return "redirect:/pizza";
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	public String doDelete(Model model, @PathVariable("id") Integer id) {
 		service.deleteById(id);
 		return "redirect:/pizza";
-		
 	}
-
 }

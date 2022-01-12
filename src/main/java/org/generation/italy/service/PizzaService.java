@@ -28,7 +28,7 @@ public class PizzaService {
 	public Pizza update(Pizza pizza) {
 		return repository.save(pizza);
 	}
-	
+
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
