@@ -12,7 +12,7 @@
 					<form
 						id="pizza-form"
 						th:object="${pizza}"
-						th:action="${edit} ? @{/edit/{id}(id=${pizza.id})} : @{/pizza/create}"
+						th:action="${edit} ? @{/pizza/edit/{id}(id=${pizza.id})} : @{/pizza/create}"
 						method="POST" class="mx-5">
 						<div class="row gy-2 fw-bold">
 							<div class="col-10">

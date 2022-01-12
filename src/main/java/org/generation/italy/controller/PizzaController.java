@@ -45,6 +45,7 @@ public class PizzaController {
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("pizza", service.getById(id));
+		model.addAttribute("edit", true);
 		return "/pizza/edit";
 	}
 
