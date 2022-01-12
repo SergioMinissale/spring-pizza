@@ -23,7 +23,7 @@ public class PizzaController {
 		model.addAttribute("list", service.findAllSortedByName());
 		return "/pizza/list";
 	}
-	
+
 	@GetMapping("/detail/{id}")
 	public String detail(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("pizza", service.getById(id));
@@ -41,4 +41,23 @@ public class PizzaController {
 		service.save(formPizza);
 		return "redirect:/pizza";
 	}
+
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("pizza", service.getById(id));
+		return "/pizza/edit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String doUpdate(@ModelAttribute("pizza") Pizza formPizza, Model model) {
+		return "redirect:/pizza";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String doDelete(Model model, @PathVariable("id") Integer id) {
+		service.deleteById(id);
+		return "redirect:/pizza";
+		
+	}
+
 }

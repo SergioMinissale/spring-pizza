@@ -38,6 +38,9 @@
 					<td>
 						<a class="btn btn-danger" th:href="@{|/pizza/detail/${item.id}|}"><i
 								class="fas fa-pizza-slice"></i></a>
+						<a class="btn btn-danger" th:href="@{|/pizza/edit/${item.id}|}"><i class="far fa-edit"></i></a>
+						<a class="btn btn-danger" th:href="@{|/pizza/edit/${item.id}|}"><i
+								class="fas fa-trash-alt"></i></a>
 					</td>
 					<div class="alert alert-danger" role="alert" th:unless="${list.size() > 0}">
 						There are no pizza in the database
