@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +22,12 @@ public class PizzaController {
 	public String list(Model model) {
 		model.addAttribute("list", service.findAllSortedByName());
 		return "/pizza/list";
+	}
+	
+	@GetMapping("/detail/{id}")
+	public String detail(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("pizza", service.getById(id));
+		return "/pizza/detail";
 	}
 
 	@GetMapping("/create")

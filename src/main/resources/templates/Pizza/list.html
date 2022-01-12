@@ -8,10 +8,10 @@
 
 <body>
 	<div class="container">
-		<h1 class="text-center text-danger text-uppercase fw-bold pt-3">Pizze</h1 >
-		<hr class="text-danger"/>
+		<h1 class="text-center text-danger text-uppercase fw-bold pt-3">Pizze</h1>
+		<hr class="text-danger" />
 		<div>
-			<a class="btn btn-danger mb-3" th:href="@{/pizza/create}">Add Pizza</a>
+			<a class="btn btn-danger mb-3" th:href="@{/pizza/create}"><i class="fas fa-plus"></i> Add Pizza</a>
 		</div>
 		<table class="table" th:if="${list.size() > 0}">
 			<thead>
@@ -20,7 +20,8 @@
 					<th>Description</th>
 					<th>Price</th>
 					<th>Ingredient</th>
-				</tr >
+					<th></th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="item : ${list}">
@@ -31,11 +32,16 @@
 						<table class="table">
 							<tr th:each="ingredient : ${item.ingredients}">
 								<td th:text="${ingredient.name}"></td>
+
 							</tr>
 						</table>
-						<div class="alert alert-primary" role="alert" th:unless="${list.size() > 0}">
-							There are no pizza in the database
-						</div>
+					<td>
+						<a class="btn btn-danger" th:href="@{|/pizza/detail/${item.id}|}"><i
+								class="fas fa-pizza-slice"></i></a>
+					</td>
+					<div class="alert alert-danger" role="alert" th:unless="${list.size() > 0}">
+						There are no pizza in the database
+					</div>
 					</td>
 				</tr>
 			</tbody>
