@@ -46,6 +46,7 @@ public class PizzaController {
 
 	@GetMapping("/create")
 	public String create(Model model) {
+		model.addAttribute("edit", false);
 		model.addAttribute("pizza", new Pizza());
 		return "/pizza/edit";
 	}
@@ -72,7 +73,7 @@ public class PizzaController {
 	public String doUptade(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("edit", true);
+			model.addAttribute("edit", false);
 			return "/pizza/edit";
 		}
 		service.update(formPizza);
