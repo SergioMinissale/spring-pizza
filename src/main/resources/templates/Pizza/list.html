@@ -8,10 +8,22 @@
 
 <body>
 	<div class="container">
+		<th:block th:if="${successMessage != null}">
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<span th:text="${successMessage}"></span>
+				<button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</th:block>
 		<h1 class="text-center text-danger text-uppercase fw-bold pt-3">Pizze</h1>
 		<hr class="text-danger" />
-		<div>
+		<div class="mb-3 d-flex justify-content-between">
 			<a class="btn btn-danger mb-3" th:href="@{/pizza/create}"><i class="fas fa-plus"></i> Add Pizza</a>
+			<form th:action="@{/pizza}" method="get">
+				<div class="input-group">
+					<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search"
+						aria-label="Search">
+					<button class="btn btn-danger" type="submit"><i class="fas fa-search"></i></button>
+				</div>
 		</div>
 		<table class="table" th:if="${list.size() > 0}">
 			<thead>
@@ -27,7 +39,7 @@
 				<tr th:each="item : ${list}">
 					<td th:text="${item.name}"></td>
 					<td th:text="${item.description}"></td>
-					<td th:text="${item.price}"></td>
+					<td th:text="${item.price} + '€'"></td>
 					<td>
 						<table class="table">
 							<tr th:each="ingredient : ${item.ingredients}">
@@ -39,8 +51,8 @@
 						<a class="btn btn-danger" th:href="@{|/pizza/detail/${item.id}|}"><i
 								class="fas fa-pizza-slice"></i></a>
 						<a class="btn btn-danger" th:href="@{|/pizza/edit/${item.id}|}"><i class="far fa-edit"></i></a>
-						<a class="btn btn-danger" th:href="@{|/pizza/delete/${item.id}|}"><i
-								class="fas fa-trash-alt"></i></a>
+						<a class="btn btn-danger" th:href="@{|/pizza/delete/${item.id}|}"
+							onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a>
 					</td>
 					<div class="alert alert-danger" role="alert" th:unless="${list.size() > 0}">
 						There are no pizza in the database

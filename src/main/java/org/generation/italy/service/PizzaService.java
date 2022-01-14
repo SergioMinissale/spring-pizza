@@ -17,6 +17,10 @@ public class PizzaService {
 		return repository.findAll(Sort.by("name"));
 	}
 
+	public List<Pizza> findByKeywordSortedByName(String keyword) {
+		return repository.findByNameContainingIgnoreCaseOrderByName(keyword);
+	}
+
 	public Pizza save(Pizza pizza) {
 		return repository.save(pizza);
 	}

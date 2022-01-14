@@ -15,6 +15,9 @@
 			<dt>Price</dt>
 			<dd th:text="*{price}"></dd>
 		</dl>
+		<div class=" mt-3">
+			<a class="btn btn-danger" th:href="@{/}"><i class="fas fa-times"></i> Back</a>
+		</div>
 	</div>
 
 	<div th:replace="fragments/resources :: scripts"></div>

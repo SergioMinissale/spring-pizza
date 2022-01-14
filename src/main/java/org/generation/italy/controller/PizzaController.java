@@ -1,5 +1,7 @@
 package org.generation.italy.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.generation.italy.model.Pizza;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/pizza")
@@ -22,7 +26,14 @@ public class PizzaController {
 	private PizzaService service;
 
 	@GetMapping
-	public String list(Model model) {
+	public String list(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+		List<Pizza> result;
+		if (keyword != null && !keyword.isEmpty()) {
+			result = service.findByKeywordSortedByName(keyword);
+			model.addAttribute("Keyword", keyword);
+		} else {
+			result = service.findAllSortedByName();
+		}
 		model.addAttribute("list", service.findAllSortedByName());
 		return "/pizza/list";
 	}
@@ -40,10 +51,12 @@ public class PizzaController {
 	}
 
 	@PostMapping("/create")
-	public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
+	public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
 			return "/pizza/edit";
 		}
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza created");
 		service.save(formPizza);
 		return "redirect:/pizza";
 	}
@@ -56,13 +69,21 @@ public class PizzaController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String doUpdate(@ModelAttribute("pizza") Pizza formPizza, Model model) {
+	public String doUptade(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("edit", true);
+			return "/pizza/edit";
+		}
+		service.update(formPizza);
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza edited");
 		return "redirect:/pizza";
 	}
 
 	@GetMapping("/delete/{id}")
-	public String doDelete(Model model, @PathVariable("id") Integer id) {
+	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		service.deleteById(id);
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza deleted!");
 		return "redirect:/pizza";
 	}
 }

@@ -14,41 +14,40 @@
 				<form id="pizza-form" th:object="${pizza}"
 					th:action="${edit} ? @{/pizza/edit/{id}(id=${pizza.id})} : @{/pizza/create}" method="POST"
 					class="mx-5">
-					<ul>
-						<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
-					</ul>
 					<div class="row gy-2 fw-bold">
 						<div class="col-10">
 							<label class="form-label" for="name">Name</label>
-							<input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+							<input type="text" class="form-control" id="name" th:field="*{name}"
+								th:errorClass="is-invalid">
 							<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
-							<ul>
-							<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
-							</ul>
+								<ul>
+									<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+								</ul>
+							</div>
+							<div class="col-2">
+								<label class="form-label" for="price">Price</label>
+								<input type="number" class="form-control" id="price" step=".01" th:field="*{price}"
+									th:errorClass="is-invalid">
+								<div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+									<ul>
+										<li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-12">
+								<label class="form-label" for="description">Description</label>
+								<textarea type="text" class="form-control" id="description" th:field="*{description}"
+									rows="2"></textarea>
+							</div>
 						</div>
-						<div class="col-2">
-							<label class="form-label" for="price">Price</label>
-							<input type="number" class="form-control" id="price" step=".01" th:field="*{price}"th:errorClass="is-invalid">
-							<div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
-							<ul>
-							<li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
-							</ul>
+						<div class="row">
+							<div class="col-3 mt-3">
+								<a class="btn btn-danger" th:href="@{/}"><i class="fas fa-times"></i> Back</a>
+							</div>
+							<div class="col-3 offset-5 mt-3">
+								<button class="btn btn-danger" type="submit"><i class="fas fa-check"></i> Save</button>
+							</div>
 						</div>
-						</div>
-						<div class="col-12">
-							<label class="form-label" for="description">Description</label>
-							<textarea type="text" class="form-control" id="description" th:field="*{description}"
-								rows="2"></textarea>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-2 mt-3">
-							<button class="btn btn-danger" type="submit">Save</button>
-						</div>
-						<div class="col-2 offset-8 mt-3">
-							<a class="btn btn-danger" th:href="@{/}" th:text="Back"></a>
-						</div>
-					</div>
 				</form>
 			</div>
 		</div>

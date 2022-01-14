@@ -19,13 +19,13 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotEmpty(message="Name is mandatory")
+	@NotEmpty(message = "Name is mandatory")
 	private String name;
 
 	private String description;
 
-	@NotNull(message="Price must be not null")
-	@Positive(message="Price must be positive")
+	@NotNull(message = "Price must be not null")
+	@Positive(message = "Price must be positive")
 	private BigDecimal price;
 
 	@ManyToMany
