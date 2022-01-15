@@ -4,8 +4,10 @@
 	<div th:replace="fragments/resources :: headTags"></div>
 	<title>Edit Pizza</title>
 </head>
+<nav th:replace="fragments/navbar :: navbar('pizza')"></nav>
 
 <body>
+
 	<div class="flex-container">
 		<h1 class="text-center text-danger text-uppercase">Pizza</h1>
 		<hr />
@@ -48,6 +50,16 @@
 								<button class="btn btn-danger" type="submit"><i class="fas fa-check"></i> Save</button>
 							</div>
 						</div>
+						<div class="col-4 mt-3 pl-3">
+							<h4>Ingredients</h4>
+							<div class="form-check" th:each="ingredient : ${ingredient}">
+								<input class="form-check-input" type="checkbox" th:id="|ingredient_${ingredient.id}|"
+									th:value="${ingredient.id}" th:field="*{ingredient}">
+								<label class="form-check-label" th:for="|ingredient_${ingredient.id}|"
+									th:text="${ingredient.name}"></label>
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
