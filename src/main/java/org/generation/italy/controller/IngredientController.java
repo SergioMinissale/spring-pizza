@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/ingredient")
+@RequestMapping("/ingredients")
 public class IngredientController {
 
 	@Autowired
@@ -36,14 +36,14 @@ public class IngredientController {
 			result = service.findAllSortedByName();
 		}
 		model.addAttribute("list", result);
-		return "/ingredient/list";
+		return "/ingredients/list";
 	}
 
 	@GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("edit", false);
 		model.addAttribute("ingredient", new Ingredient());
-		return "/ingredient/edit";
+		return "/ingredients/edit";
 	}
 
 	@PostMapping("/create")
@@ -51,18 +51,18 @@ public class IngredientController {
 			Model model, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("edit", false);
-			return "/ingredient/edit";
+			return "/ingredients/edit";
 		}
 		redirectAttributes.addFlashAttribute("successMessage", "Ingredient created");
 		service.save(formIngredient);
-		return "redirect:/ingredient";
+		return "redirect:/ingredients";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("ingredient", service.getById(id));
 		model.addAttribute("edit", true);
-		return "/ingredient/edit";
+		return "/ingredients/edit";
 	}
 
 	@PostMapping("/edit/{id}")
@@ -70,18 +70,18 @@ public class IngredientController {
 			Model model, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("edit", true);
-			return "/ingredient/edit";
+			return "/ingredients/edit";
 		}
 		service.update(formIngredient);
 		redirectAttributes.addFlashAttribute("successMessage", "Ingredient edited");
-		return "redirect:/ingredient";
+		return "redirect:/ingredients";
 	}
 
 	@GetMapping("/delete/{id}")
 	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		service.deleteById(id);
 		redirectAttributes.addFlashAttribute("successMessage", "Ingredient deleted!");
-		return "redirect:/ingredient";
+		return "redirect:/ingredients";
 	}
 
 }

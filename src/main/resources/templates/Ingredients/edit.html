@@ -1,18 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<div th:replace="fragment/resources :: headTags"></div>
-		<title>Edit Ingredient</title>
-	</head>
-	<nav th:replace="fragments/navbar :: navbar('ingredient')"></nav>
+
+<head>
+	<div th:replace="fragments/resources :: headTags"></div>
+	<title>Edit Ingredient</title>
+</head>
+<nav th:replace="fragments/navbar :: navbar('ingredient')"></nav>
+
+<body>
+
 	<body>
-	
 		<div class="container">
-			<h1 class="text-center">Ingredient</h1 >
-			<hr/>
-			<form
-				id="ingredient-form"
-				th:object="${ingredient}"
-				th:action="${edit} ? @{/ingredient/edit/{id}(id=${ingredient.id})} : @{/ingredient/create}"
+			<h1 class="text-center">Ingredient</h1>
+			<hr />
+			<form id="ingredient-form" th:object="${ingredient}"
+				th:action="${edit} ? @{/ingredients/edit/{id}(id=${ingredient.id})} : @{/ingredients/create}"
 				method="POST" class="mx-5">
 				<ul>
 					<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
@@ -22,12 +23,13 @@
 						<div class="row gy-2">
 							<div class="col-12">
 								<label class="form-label" for="name">Name</label>
-								<input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+								<input type="text" class="form-control" id="name" th:field="*{name}"
+									th:errorClass="is-invalid">
 								<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
 									<ul>
 										<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
 									</ul>
-								</div >
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -41,6 +43,7 @@
 					</div>
 			</form>
 		</div>
-		<div th:replace="fragment/resources :: scripts"></div>
+		<div th:replace="fragments/resources :: scripts"></div>
 	</body>
-</html >
+
+</html>
